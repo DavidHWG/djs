@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="pt-20 pl-10 f-r f-24 pr-15 interval" data-time="1496000000000">
+          <b>车展开幕还有</b>
+          <span class="badge-primary c-yellow radius pd-5 date0">00</span> <b>天</b>
+          <span class="badge-primary c-yellow radius pd-5 date1">00</span> <b>时</b>
+          <span class="badge-primary c-yellow radius pd-5 date2">00</span> <b>分</b>
+          <span class="badge-primary c-yellow radius pd-5 date3">00</span> <b>秒</b>
+        </div>
+		<script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+			    function n() {
+			        0 == $(".interval").length && clearInterval(h);
+			        for (var i = 0; i < $(".interval").length; i++) {
+			            var a = $(".interval").eq(i).attr("data-time"),
+			                b = (new Date).getTime(),//getTime()返回距 1970 年 1 月 1 日之间的毫秒数
+			                n = a - b;//倒计时的天数（毫秒）
+			            if (n > 0) {
+			                var t = $(".interval").eq(i),
+			                    r = [];
+			                r[0] = parseInt(n / 1e3 / 60 / 60 / 24),//天
+			                n -= 1e3 * r[0] * 60 * 60 * 24,//减去r[0]天之后剩余的毫秒数
+			                r[1] = parseInt(n / 1e3 / 60 / 60),//时
+			                n -= 1e3 * r[1] * 60 * 60,
+			                r[2] = parseInt(n / 1e3 / 60),//分
+			                n -= 1e3 * r[2] * 60,
+			                r[3] = parseInt(n / 1e3);//秒
+			                for (var s = 0; s < r.length; s++){
+			                    t.find(".date" + s).html(r[s] >= 10 ? r[s] : "0" + r[s]);
+			                }
+			            }
+			        }
+			    }
+			    var h = setInterval(n, 1e3);//1e3表示1*10的三次方
+			})
+		</script>
+	</body>
+</html>
